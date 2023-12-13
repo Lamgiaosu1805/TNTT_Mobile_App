@@ -1,11 +1,57 @@
-import { Image, Keyboard, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react';
+import { Alert, Image, Keyboard, ScrollView, StyleSheet, Text, TextInput, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import axios from 'axios';
+import utils from '../utils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { storeUser } from '../redux/userSlice';
+import { useDispatch } from 'react-redux';
 
-export default function SignInScreens() {
+export default function SignInScreen({ navigation }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isHidePassword, setIsHidePassword] = useState(true);
+    // const dispatch = useDispatch()
+    const checkToken = async () => {
+        try {
+            const token = AsyncStorage.getItem('accessToken');
+            if(token) {
+                navigation.navigate('Home')
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    useEffect(() => {
+        checkToken()
+    }, []);
+    const signIn = async() => {
+        try {
+            if(username == "" || password == "") {
+                Alert.alert('Đăng nhập không thành công', "Tên đăng nhập và mật khẩu không được bỏ trống")
+            }
+            const responseData = await axios.post(`${utils.apiUrl}/auth/signIn`, {
+                username: username,
+                password: password
+            });
+            const data = responseData.data;
+            const accessToken = data.accessToken;
+            if(accessToken) {
+                await AsyncStorage.setItem('accessToken', accessToken);
+                // const action = storeUser({
+                //     token: accessToken
+                // })
+                // dispatch(action);
+                navigation.navigate('Home');
+            }
+            else {
+                Alert.alert('Đăng nhập không thành công', "Sai tên đăng nhập hoặc mật khẩu!")
+            }
+        } catch (error) {
+            console.log(error);
+            Alert.alert('Lỗi', 'Có lỗi trong quá trình đăng nhập, vui lòng thử lại sau!')
+        }
+    }
     return (
         <ScrollView style={styles.container}>
             <TouchableNativeFeedback onPress={Keyboard.dismiss}>
@@ -38,7 +84,9 @@ export default function SignInScreens() {
                     <TouchableOpacity 
                         style={styles.signInBtn} 
                         activeOpacity={0.6}
-                        onPress={() => console.log(`${username} ${password}`)}
+                        onPress={() => {
+                            signIn();
+                        }}
                     >
                         <Text style={{fontSize: 20, color: '#ffed00', fontWeight: '600'}}>ĐĂNG NHẬP</Text>
                     </TouchableOpacity>
