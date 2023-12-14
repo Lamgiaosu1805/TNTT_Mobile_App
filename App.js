@@ -1,18 +1,19 @@
+import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignInScreen from './src/screens/SignInScreen';
-import { PaperProvider } from 'react-native-paper';
-import HomeScreen from './src/screens/HomeScreen';
+import { MD3LightTheme as DefaultTheme, PaperProvider, SafeAreaView } from 'react-native-paper';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
-
+import DrawerNavigator from './src/navigator/DrawerNavigator';
 
 const Stack = createNativeStackNavigator();
+
 
 export default function App() {
   return (
     <Provider store={store}>
-      <PaperProvider>
+      <PaperProvider theme={{...DefaultTheme}}>
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName='SignIn'
@@ -21,11 +22,10 @@ export default function App() {
             }}
           >
             <Stack.Screen name="SignIn" component={SignInScreen}/>
-            <Stack.Screen name="Home" component={HomeScreen}/>
+            <Stack.Screen name="HomeDrawer" component={DrawerNavigator}/>
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>
     </Provider>
-    
   );
 }

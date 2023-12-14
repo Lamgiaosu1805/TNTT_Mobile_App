@@ -4,19 +4,16 @@ import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import utils from '../utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { storeUser } from '../redux/userSlice';
-import { useDispatch } from 'react-redux';
 
 export default function SignInScreen({ navigation }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isHidePassword, setIsHidePassword] = useState(true);
-    // const dispatch = useDispatch()
     const checkToken = async () => {
         try {
             const token = AsyncStorage.getItem('accessToken');
-            if(token) {
-                navigation.navigate('Home')
+            if(typeof token == 'string') {
+                navigation.replace('HomeDrawer')
             }
         } catch (error) {
             console.log(error)
@@ -30,22 +27,20 @@ export default function SignInScreen({ navigation }) {
             if(username == "" || password == "") {
                 Alert.alert('Đăng nhập không thành công', "Tên đăng nhập và mật khẩu không được bỏ trống")
             }
-            const responseData = await axios.post(`${utils.apiUrl}/auth/signIn`, {
-                username: username,
-                password: password
-            });
-            const data = responseData.data;
-            const accessToken = data.accessToken;
-            if(accessToken) {
-                await AsyncStorage.setItem('accessToken', accessToken);
-                // const action = storeUser({
-                //     token: accessToken
-                // })
-                // dispatch(action);
-                navigation.navigate('Home');
-            }
             else {
-                Alert.alert('Đăng nhập không thành công', "Sai tên đăng nhập hoặc mật khẩu!")
+                const responseData = await axios.post(`${utils.apiUrl}/auth/signIn`, {
+                    username: username,
+                    password: password
+                });
+                const data = responseData.data;
+                const accessToken = data.accessToken;
+                if(accessToken) {
+                    await AsyncStorage.setItem('accessToken', accessToken);
+                    navigation.replace('HomeDrawer');
+                }
+                else {
+                    Alert.alert('Đăng nhập không thành công', "Sai tên đăng nhập hoặc mật khẩu!")
+                }
             }
         } catch (error) {
             console.log(error);

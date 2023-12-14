@@ -1,14 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useMemo } from 'react'
-import { useSelector } from 'react-redux'
+import { StyleSheet, View } from 'react-native'
+import React from 'react'
+import HomeScreenRole from './HomeScreenRole';
 
-export default function HomeScreen() {
-    // const currentUser = useSelector(state => state.user);
+export default function HomeScreen({navigation}) {
     return (
-        <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-            {/* <Text>{currentUser.token}</Text> */}
+        <View style={styles.container}>
+            <HomeScreenRole navigation={navigation}/>
         </View>
     )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    }
+})
