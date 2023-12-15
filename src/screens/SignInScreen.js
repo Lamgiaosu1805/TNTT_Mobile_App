@@ -12,16 +12,16 @@ export default function SignInScreen({ navigation }) {
     const checkToken = async () => {
         try {
             const token = AsyncStorage.getItem('accessToken');
-            if(typeof token == 'string') {
+            if(token) {
                 navigation.replace('HomeDrawer')
             }
         } catch (error) {
             console.log(error)
         }
     }
-    useEffect(() => {
-        checkToken()
-    }, []);
+    // useEffect(() => {
+    //     checkToken()
+    // }, []);
     const signIn = async() => {
         try {
             if(username == "" || password == "") {

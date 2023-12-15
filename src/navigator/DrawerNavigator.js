@@ -8,13 +8,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import utils from '../utils'
-import { storeUser } from '../redux/userSlice'
+import { storeUser } from '../redux/Slice/userSlice'
+import { storeCapKhanChucVu } from '../redux/Slice/capKhanChucVuSlice'
 
 const Drawer = createDrawerNavigator()
 
 export default function DrawerNavigator({navigation}) {
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.user);
+    const listCapKhanChucVu = useSelector(state => state.capKhanChucVu);
+
     useEffect(() => {
         AsyncStorage.getItem('accessToken')
             .then(token => axios.get(`${utils.apiUrl}/users/me`, {
@@ -27,12 +30,28 @@ export default function DrawerNavigator({navigation}) {
                 dispatch(action)
             })
             .catch(e => console.log(e))
-    }, [])
+    }, []);
+    useEffect(() => {
+        getCapKhanChucVu();
+    }, []);
+    const getCapKhanChucVu = async() => {
+        try {
+            const capKhan = (await axios.get(`${utils.apiUrl}/capkhan`)).data
+            const chucVu = (await axios.get(`${utils.apiUrl}/chucvu`)).data
+            const action = storeCapKhanChucVu({
+                capKhan: capKhan,
+                chucVu: chucVu
+            });
+            dispatch(action)
+        } catch (error) {
+            console.log(`get cap khan chuc vu error ${error}`)
+        }
+    }
     
     return (
         <View style={{flex: 1}}>
             {
-                currentUser
+                currentUser && listCapKhanChucVu
                 ?
                 <Drawer.Navigator
                     initialRouteName='Home'

@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
 
 const devApi = "http://192.168.0.9:3000/api/v1";
