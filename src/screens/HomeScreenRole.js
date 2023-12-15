@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 export default function HomeScreenRole({navigation}) {
-    const currentUser = useSelector(state => state.user)
+    const currentUser = useSelector(state => state.user);
     const renderView = useCallback(() => {
         if(currentUser) {
             switch (currentUser.role) {
@@ -31,6 +31,7 @@ export default function HomeScreenRole({navigation}) {
     }, [currentUser]);
 
     const AdminXuDoanView = useCallback(() => {
+        const listMemberXuDoan = useSelector(state => state.memberXuDoan)
         return(
             <View style={styles.adminXuDoanContainer}>
                 <View style={styles.header}>
@@ -48,6 +49,37 @@ export default function HomeScreenRole({navigation}) {
                     <TouchableOpacity style={{width: 30, height: 30}} activeOpacity={1}>
                         <AwesomeIcon name='bell' size={28} color={"white"}/>
                     </TouchableOpacity>
+                </View>
+                <View style={styles.content}>
+                    <View style={styles.rowItem}>
+                        <View style={styles.item}>
+                            <Text style={styles.itemTitle}>
+                                Danh sách thành viên
+                            </Text>
+                            <Text>
+                                {`Số lượng ${listMemberXuDoan.length}`}
+                            </Text>
+                        </View>
+                        <View style={styles.item}>
+
+                        </View>
+                    </View>
+                    <View style={styles.rowItem}>
+                        <View style={styles.item}>
+                            
+                        </View>
+                        <View style={styles.item}>
+
+                        </View>
+                    </View>
+                    <View style={styles.rowItem}>
+                        <View style={styles.item}>
+                            
+                        </View>
+                        <View style={styles.item}>
+
+                        </View>
+                    </View>
                 </View>
             </View>
         )
@@ -78,5 +110,34 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: '600',
         color: 'white'
+    },
+    content: {
+        marginTop: 40
+    },
+    rowItem: {
+        flexDirection: 'row',
+        marginBottom: 32
+    },
+    item: {
+        backgroundColor: 'white',
+        height: 120,
+        flex: 1,
+        marginHorizontal: 12,
+        borderRadius: 12,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.6,
+        shadowRadius: 1.41,
+        elevation: 2,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    itemTitle: {
+        fontSize: 20,
+        fontWeight: '500',
+        margin: 4
     }
 })

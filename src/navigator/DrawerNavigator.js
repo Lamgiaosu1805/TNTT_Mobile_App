@@ -10,6 +10,7 @@ import axios from 'axios'
 import utils from '../utils'
 import { storeUser } from '../redux/Slice/userSlice'
 import { storeCapKhanChucVu } from '../redux/Slice/capKhanChucVuSlice'
+import { storeListMemberXuDoan } from '../redux/Slice/memberXuDoanSlice'
 
 const Drawer = createDrawerNavigator()
 
@@ -27,24 +28,40 @@ export default function DrawerNavigator({navigation}) {
             }))
             .then(res => {
                 const action = storeUser(res.data)
-                dispatch(action)
+                dispatch(action);
             })
             .catch(e => console.log(e))
     }, []);
     useEffect(() => {
         getCapKhanChucVu();
     }, []);
+    useEffect(() => {
+        getMemberXuDoan();
+    }, [])
     const getCapKhanChucVu = async() => {
         try {
             const capKhan = (await axios.get(`${utils.apiUrl}/capkhan`)).data
             const chucVu = (await axios.get(`${utils.apiUrl}/chucvu`)).data
             const action = storeCapKhanChucVu({
+                chucVu: chucVu,
                 capKhan: capKhan,
-                chucVu: chucVu
             });
             dispatch(action)
         } catch (error) {
             console.log(`get cap khan chuc vu error ${error}`)
+        }
+    }
+    const getMemberXuDoan = async () => {
+        try {
+            const token = await  AsyncStorage.getItem('accessToken');
+            const listMemberXuDoan = (await axios.get(`${utils.apiUrl}/xudoan/members`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })).data;
+            dispatch(storeListMemberXuDoan(listMemberXuDoan.data));
+        } catch (error) {
+            console.log(`get list member xu doan error ${error}`)
         }
     }
     
