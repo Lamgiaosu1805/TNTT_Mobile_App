@@ -19,9 +19,9 @@ export default function SignInScreen({ navigation }) {
             console.log(error)
         }
     }
-    // useEffect(() => {
-    //     checkToken()
-    // }, []);
+    useEffect(() => {
+        checkToken()
+    }, []);
     const signIn = async() => {
         try {
             if(username == "" || password == "") {
