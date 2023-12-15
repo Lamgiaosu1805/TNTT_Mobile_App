@@ -12,7 +12,7 @@ export default function SignInScreen({ navigation }) {
     const checkToken = async () => {
         try {
             const token = AsyncStorage.getItem('accessToken');
-            if(typeof token == 'string') {
+            if(token) {
                 navigation.replace('HomeDrawer')
             }
         } catch (error) {
