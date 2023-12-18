@@ -19,7 +19,7 @@ export default function DrawerNavigator({navigation}) {
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.user);
     const listCapKhan = useSelector(state => state.capKhan);
-    const listChucVu = useSelector(state => state.chucVu)
+    const listChucVu = useSelector(state => state.chucVu);
 
     useEffect(() => {
         AsyncStorage.getItem('accessToken')
@@ -36,8 +36,10 @@ export default function DrawerNavigator({navigation}) {
     }, []);
     useEffect(() => {
         getCapKhan();
-        getChucVu();
     }, []);
+    useEffect(() => {
+        getChucVu();
+    }, [])
     useEffect(() => {
         getMemberXuDoan();
     }, []);

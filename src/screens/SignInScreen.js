@@ -11,8 +11,8 @@ export default function SignInScreen({ navigation }) {
     const [isHidePassword, setIsHidePassword] = useState(true);
     const checkToken = async () => {
         try {
-            const token = AsyncStorage.getItem('accessToken');
-            if(token) {
+            const token = await AsyncStorage.getItem('accessToken');
+            if(token !== null) {
                 navigation.replace('HomeDrawer')
             }
         } catch (error) {
@@ -35,7 +35,7 @@ export default function SignInScreen({ navigation }) {
                 const data = responseData.data;
                 const accessToken = data.accessToken;
                 if(accessToken) {
-                    await AsyncStorage.setItem('accessToken', accessToken);
+                    await AsyncStorage.setItem('accessToken', accessToken.toString());
                     navigation.replace('HomeDrawer');
                 }
                 else {
