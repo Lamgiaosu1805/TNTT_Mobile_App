@@ -1,4 +1,4 @@
-import { Dimensions, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, Dimensions, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { DrawerItemList, createDrawerNavigator } from '@react-navigation/drawer'
 import HomeScreen from '../screens/HomeScreen'
@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import utils from '../utils'
-import { storeUser } from '../redux/Slice/userSlice'
-import { storeListMemberXuDoan } from '../redux/Slice/memberXuDoanSlice'
+import { storeUser, resetUser } from '../redux/Slice/userSlice'
+import { resetMemberXuDoan, storeListMemberXuDoan } from '../redux/Slice/memberXuDoanSlice'
 import { storeCapKhan } from '../redux/Slice/capKhanSlice'
 import { storeChucVu } from '../redux/Slice/chucVuSlice'
 
@@ -20,6 +20,34 @@ export default function DrawerNavigator({navigation}) {
     const currentUser = useSelector(state => state.user);
     const listCapKhan = useSelector(state => state.capKhan);
     const listChucVu = useSelector(state => state.chucVu);
+
+    const logout = async () => {
+        Alert.alert(
+            "Đăng xuất", 
+            "Bạn có chắc chắn muốn đăng xuất khỏi thiết bị này ?",
+            [
+               
+                {
+                    text: 'Huỷ',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Đồng ý',
+                    onPress: async () => {
+                        try {
+                            await AsyncStorage.clear();
+                            dispatch(resetMemberXuDoan());
+                            dispatch(resetUser());
+                            navigation.replace('SignIn')
+                        } catch (error) {
+                            console.log(error)
+                        }
+                    },
+                    style: 'destructive',
+                },
+              ],
+        )
+    }
 
     useEffect(() => {
         AsyncStorage.getItem('accessToken')
@@ -105,7 +133,9 @@ export default function DrawerNavigator({navigation}) {
                                         </Text>
                                     </TouchableOpacity>
                                     <DrawerItemList {...props}/>
-                                    <TouchableOpacity activeOpacity={0.6} onPress={() => utils.logout(navigation)}>
+                                    <TouchableOpacity activeOpacity={0.6} onPress={() => {
+                                        logout();
+                                    }}>
                                         <Text style={{fontSize: 22, textAlign: 'center', marginTop: 20, fontWeight: '700', color:'red'}}>Đăng xuất</Text>
                                     </TouchableOpacity>
                                 </SafeAreaView>
@@ -133,7 +163,10 @@ export default function DrawerNavigator({navigation}) {
                     />
                 </Drawer.Navigator>
                 :
-                <View></View>
+                <View style={{justifyContent:'center', alignItems: 'center', flex: 1}}>
+                    <ActivityIndicator size={'large'}/>
+                    <Text>Đang tải dữ liệu...</Text>
+                </View>
             }
         </View>
     )
