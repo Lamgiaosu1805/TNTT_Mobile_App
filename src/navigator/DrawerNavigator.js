@@ -9,15 +9,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import utils from '../utils'
 import { storeUser } from '../redux/Slice/userSlice'
-import { storeCapKhanChucVu } from '../redux/Slice/capKhanChucVuSlice'
 import { storeListMemberXuDoan } from '../redux/Slice/memberXuDoanSlice'
+import { storeCapKhan } from '../redux/Slice/capKhanSlice'
+import { storeChucVu } from '../redux/Slice/chucVuSlice'
 
 const Drawer = createDrawerNavigator()
 
 export default function DrawerNavigator({navigation}) {
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.user);
-    const listCapKhanChucVu = useSelector(state => state.capKhanChucVu);
+    const listCapKhan = useSelector(state => state.capKhan);
+    const listChucVu = useSelector(state => state.chucVu)
 
     useEffect(() => {
         AsyncStorage.getItem('accessToken')
@@ -33,22 +35,28 @@ export default function DrawerNavigator({navigation}) {
             .catch(e => console.log(e))
     }, []);
     useEffect(() => {
-        getCapKhanChucVu();
+        getCapKhan();
+        getChucVu();
     }, []);
     useEffect(() => {
         getMemberXuDoan();
-    }, [])
-    const getCapKhanChucVu = async() => {
+    }, []);
+    const getChucVu = async() => {
         try {
-            const capKhan = (await axios.get(`${utils.apiUrl}/capkhan`)).data
-            const chucVu = (await axios.get(`${utils.apiUrl}/chucvu`)).data
-            const action = storeCapKhanChucVu({
-                chucVu: chucVu,
-                capKhan: capKhan,
-            });
+            const chucVu = (await axios.get(`${utils.apiUrl}/chucVu`)).data
+            const action = storeChucVu(chucVu);
             dispatch(action)
         } catch (error) {
-            console.log(`get cap khan chuc vu error ${error}`)
+            console.log(`get chuc vu error ${error}`)
+        }
+    } 
+    const getCapKhan = async() => {
+        try {
+            const capKhan = (await axios.get(`${utils.apiUrl}/capkhan`)).data
+            const action = storeCapKhan(capKhan);
+            dispatch(action)
+        } catch (error) {
+            console.log(`get cap khan error ${error}`)
         }
     }
     const getMemberXuDoan = async () => {
@@ -68,7 +76,7 @@ export default function DrawerNavigator({navigation}) {
     return (
         <View style={{flex: 1}}>
             {
-                currentUser && listCapKhanChucVu
+                currentUser && listCapKhan && listChucVu
                 ?
                 <Drawer.Navigator
                     initialRouteName='Home'

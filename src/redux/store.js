@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './Slice/userSlice'
-import capKhanChucVuReducer from './Slice/capKhanChucVuSlice'
+import capKhanReducer from './Slice/capKhanSlice'
+import chucVuReducer from './Slice/chucVuSlice'
 import memberXuDoanReducer from './Slice/memberXuDoanSlice'
 
 const rootReducer = {
     user: userReducer,
-    capKhanChucVu: capKhanChucVuReducer,
-    memberXuDoan: memberXuDoanReducer
+    capKhan: capKhanReducer,
+    memberXuDoan: memberXuDoanReducer,
+    chucVu: chucVuReducer
 }
 
 const store = configureStore({

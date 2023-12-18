@@ -1,12 +1,13 @@
 import { ActivityIndicator, Alert, Keyboard, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import React, { useState } from 'react';
 import DrawerHeader from '../components/DrawerHeader';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, MultiSelect } from 'react-native-element-dropdown';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
 import utils from '../utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { addMemberXuDoan } from '../redux/Slice/memberXuDoanSlice';
 
 export default function AddMemberScreen({navigation}) {
   const [saintName, setSaintName] = useState("");
@@ -16,12 +17,13 @@ export default function AddMemberScreen({navigation}) {
   const [chucVuselected, setChucVuSelected] = useState([]);
   const [date, setDate] = useState(new Date);
   const [showDate, setShowDate] = useState(true);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   
-  const listCapKhanChucVu = useSelector(state => state.capKhanChucVu);
+  const listCapKhan= useSelector(state => state.capKhan);
   const currentUser = useSelector(state => state.user);
-  const listCapKhan = listCapKhanChucVu.capKhan;
-  const listChucVu = listCapKhanChucVu.chucVu;
+  const listChucVu = useSelector(state=> state.chucVu);
+
 
   const changeShowDate = () => {
     setShowDate(!showDate);
@@ -57,6 +59,7 @@ export default function AddMemberScreen({navigation}) {
               setCapKhan(null);
               setChucVuSelected([]);
               setDate(new Date);
+              dispatch(addMemberXuDoan(res.data.data))
             }
             else {
               console.log(res.data);

@@ -9,8 +9,7 @@ const memberXuDoan = createSlice({
             return state
         },
         addMemberXuDoan:(state, action) => {
-            console.log(action.payload);
-            return state
+            state.push(action.payload);
         }
     }
 });

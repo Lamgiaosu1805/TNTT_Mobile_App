@@ -52,14 +52,14 @@ export default function HomeScreenRole({navigation}) {
                 </View>
                 <View style={styles.content}>
                     <View style={styles.rowItem}>
-                        <View style={styles.item}>
+                        <TouchableOpacity style={styles.item} activeOpacity={0.6} onPress={() => navigation.navigate('ListMember')}>
                             <Text style={styles.itemTitle}>
                                 Danh sách thành viên
                             </Text>
                             <Text>
                                 {`Số lượng ${listMemberXuDoan.length}`}
                             </Text>
-                        </View>
+                        </TouchableOpacity>
                         <View style={styles.item}>
 
                         </View>
