@@ -91,20 +91,22 @@ export default function ListMemberScreen({navigation}) {
                     <Ionicons name='search' size={28} color={"white"}/>
                 </TouchableOpacity>
             </View>
-            {
-                listMember.length == 0
-                ?
-                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{fontSize: 20, fontWeight: '500'}}>Chưa có dữ liệu</Text>
-                </View>
-                :
-                <FlatList 
-                    bounces={false}
-                    data={listMember}
-                    renderItem={({item}) => <Item item={item}/>}
-                    key={(item) => item._id}
-                />
-            }
+            <View style={{paddingTop: 16}}>
+                {
+                    listMember.length == 0
+                    ?
+                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                        <Text style={{fontSize: 20, fontWeight: '500'}}>Chưa có dữ liệu</Text>
+                    </View>
+                    :
+                    <FlatList 
+                        bounces={false}
+                        data={listMember}
+                        renderItem={({item}) => <Item item={item}/>}
+                        key={(item) => item._id}
+                    />
+                }
+            </View>
            
         </View>
     )
@@ -113,7 +115,7 @@ export default function ListMemberScreen({navigation}) {
 const styles = StyleSheet.create({
     item: {
         marginHorizontal: 16,
-        marginTop: 16,
+        marginVertical: 8,
         backgroundColor: 'white',
         borderRadius: 12,
         shadowColor: '#000',
@@ -135,7 +137,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingTop: 60,
-        paddingBottom: 8,
         backgroundColor: '#e60000',
         paddingHorizontal: 16,
 
