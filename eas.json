@@ -1,21 +1,25 @@
 {
+  "cli": {
+    "version": ">= 5.6.0"
+  },
   "build": {
-    "preview": {
-      "android": {
-        "buildType": "apk"
-      }
-    },
-    "preview2": {
-      "android": {
-        "gradleCommand": ":app:assembleRelease"
-      }
-    },
-    "preview3": {
-      "developmentClient": true
-    },
-    "preview4": {
+    "development": {
+      "developmentClient": true,
       "distribution": "internal"
     },
+    "preview": {
+      "channel": "default",
+      "distribution": "internal",
+      "android": {
+        "buildType": "app-bundle"
+      }
+    },
+    "production": {
+      "channel": "default",
+      "autoIncrement": true
+    }
+  },
+  "submit": {
     "production": {}
   }
 }
