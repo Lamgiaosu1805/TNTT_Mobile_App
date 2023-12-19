@@ -27,6 +27,7 @@ export default function AddMemberScreen({navigation}) {
   const listChucVu = useSelector(state=> state.chucVu);
 
   const onChange = ({type}, selectedDate) => {
+    console.log(123)
     if(type == "set") {
       const currentDate = selectedDate;
       setDate(currentDate);
