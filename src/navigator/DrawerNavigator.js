@@ -1,4 +1,4 @@
-import { ActivityIndicator, Alert, Dimensions, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, Dimensions, Image, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { DrawerItemList, createDrawerNavigator } from '@react-navigation/drawer'
 import HomeScreen from '../screens/HomeScreen'
@@ -125,7 +125,7 @@ export default function DrawerNavigator({navigation}) {
                     drawerContent={
                         (props) => {
                             return(
-                                <SafeAreaView>
+                                <SafeAreaView style={{paddingVertical: Platform.OS == 'android' ? 20 : 0}}>
                                     <TouchableOpacity style={styles.drawerContent} activeOpacity={0.6}>
                                         <Image source={require('../../assets/TNTT.png')} style={styles.logo}/>
                                         <Text style={{fontSize: 20, textAlign: 'center', marginTop: 12, fontWeight: '500'}}>

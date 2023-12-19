@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import React, { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import { Badge } from 'react-native-paper';
 
 export default function HomeScreenRole({navigation}) {
     const currentUser = useSelector(state => state.user);
@@ -53,11 +54,9 @@ export default function HomeScreenRole({navigation}) {
                 <View style={styles.content}>
                     <View style={styles.rowItem}>
                         <TouchableOpacity style={styles.item} activeOpacity={0.6} onPress={() => navigation.navigate('ListMember')}>
+                            <Badge style={{position: 'absolute', top: -8, right: -8, backgroundColor: 'red', fontSize: 16}} size={24}>{listMemberXuDoan.length}</Badge>
                             <Text style={styles.itemTitle}>
                                 Danh sách thành viên
-                            </Text>
-                            <Text>
-                                {`Số lượng ${listMemberXuDoan.length}`}
                             </Text>
                         </TouchableOpacity>
                         <View style={styles.item}>
@@ -133,11 +132,13 @@ const styles = StyleSheet.create({
         shadowRadius: 1.41,
         elevation: 2,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     itemTitle: {
-        fontSize: 20,
+        fontSize: 18,
+        textAlign: 'center',
         fontWeight: '500',
-        margin: 4
+        margin: 4,
+        padding: 8
     }
 })
