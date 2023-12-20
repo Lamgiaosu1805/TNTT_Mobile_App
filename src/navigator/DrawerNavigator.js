@@ -103,6 +103,19 @@ export default function DrawerNavigator({route, navigation}) {
             console.log(`get list member xu doan error ${error}`)
         }
     }
+    async function onFetchUpdateAsync() {
+        try {
+          const update = await Updates.checkForUpdateAsync();
+    
+          if (update.isAvailable) {
+            await Updates.fetchUpdateAsync();
+            await Updates.reloadAsync();
+          }
+        } catch (error) {
+          // You can also add an alert() to see the error message in case of an error when fetching updates.
+          alert(`Error fetching latest Expo update: ${error}`);
+        }
+    }
     
     return (
         <View style={{flex: 1}}>
@@ -134,19 +147,7 @@ export default function DrawerNavigator({route, navigation}) {
                                         </Text>
                                     </TouchableOpacity>
                                     <DrawerItemList {...props}/>
-                                    <TouchableOpacity activeOpacity={0.6} onPress={ async () => {
-                                        try {
-                                            const update = await Updates.checkForUpdateAsync();
-                                            if (update.isAvailable) {
-                                              Alert.alert("Thông báo", "Đã có bản cập nhật mới, vui lòng cập nhật", async () => {
-                                                await Updates.fetchUpdateAsync();
-                                                await Updates.reloadAsync();
-                                              })
-                                            }
-                                          } catch (error) {
-                                            alert(`Error fetching latest Expo update: ${error}`);
-                                          }
-                                    }}>
+                                    <TouchableOpacity activeOpacity={0.6} onPress={onFetchUpdateAsync}>
                                         <Text style={{fontSize: 20, marginTop: 20, marginLeft: 70, fontWeight: '500'}}>Check update</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity activeOpacity={0.6} onPress={() => {
