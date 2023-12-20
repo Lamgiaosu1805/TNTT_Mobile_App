@@ -107,10 +107,15 @@ export default function DrawerNavigator({route, navigation}) {
         try {
           const update = await Updates.checkForUpdateAsync();
           if (update.isAvailable) {
-            Alert.alert("Thông báo", "Đã có bản cập nhật mới, vui lòng cập nhật", async () => {
-                await Updates.fetchUpdateAsync();
-                await Updates.reloadAsync();
-            })
+            Alert.alert("Thông báo", "Đã có bản cập nhật mới, vui lòng cập nhật", [
+                {
+                    text: "OK",
+                    onPress: async () => {
+                        await Updates.fetchUpdateAsync();
+                        await Updates.reloadAsync();
+                    }
+                }
+            ])
             // await Updates.fetchUpdateAsync();
             // await Updates.reloadAsync();
           }
