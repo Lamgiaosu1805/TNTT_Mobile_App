@@ -12,6 +12,7 @@ import { storeUser, resetUser } from '../redux/Slice/userSlice'
 import { resetMemberXuDoan, storeListMemberXuDoan } from '../redux/Slice/memberXuDoanSlice'
 import { storeCapKhan } from '../redux/Slice/capKhanSlice'
 import { storeChucVu } from '../redux/Slice/chucVuSlice'
+import * as Updates from 'expo-updates';
 
 const Drawer = createDrawerNavigator()
 
@@ -133,10 +134,25 @@ export default function DrawerNavigator({route, navigation}) {
                                         </Text>
                                     </TouchableOpacity>
                                     <DrawerItemList {...props}/>
+                                    <TouchableOpacity activeOpacity={0.6} onPress={ async () => {
+                                        try {
+                                            const update = await Updates.checkForUpdateAsync();
+                                            if (update.isAvailable) {
+                                              Alert.alert("Thông báo", "Đã có bản cập nhật mới, vui lòng cập nhật", async () => {
+                                                await Updates.fetchUpdateAsync();
+                                                await Updates.reloadAsync();
+                                              })
+                                            }
+                                          } catch (error) {
+                                            alert(`Error fetching latest Expo update: ${error}`);
+                                          }
+                                    }}>
+                                        <Text style={{fontSize: 20, marginTop: 20, marginLeft: 70, fontWeight: '500'}}>Check update</Text>
+                                    </TouchableOpacity>
                                     <TouchableOpacity activeOpacity={0.6} onPress={() => {
                                         logout();
                                     }}>
-                                        <Text style={{fontSize: 22, textAlign: 'center', marginTop: 20, fontWeight: '700', color:'red'}}>Đăng xuất</Text>
+                                        <Text style={{fontSize: 22, textAlign: 'center', marginTop: 40, fontWeight: '700', color:'red'}}>Đăng xuất</Text>
                                     </TouchableOpacity>
                                 </SafeAreaView>
                             )
