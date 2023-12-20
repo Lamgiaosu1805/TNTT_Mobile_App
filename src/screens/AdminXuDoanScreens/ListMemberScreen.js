@@ -91,7 +91,7 @@ export default function ListMemberScreen({navigation}) {
                     <Ionicons name='search' size={28} color={"white"}/>
                 </TouchableOpacity>
             </View>
-            <View style={{paddingTop: 16}}>
+            <View style={{flex: 1}}>
                 {
                     listMember.length == 0
                     ?
@@ -99,8 +99,7 @@ export default function ListMemberScreen({navigation}) {
                         <Text style={{fontSize: 20, fontWeight: '500'}}>Chưa có dữ liệu</Text>
                     </View>
                     :
-                    <FlatList 
-                        bounces={false}
+                    <FlatList
                         data={listMember}
                         renderItem={({item}) => <Item item={item}/>}
                         key={(item) => item._id}
@@ -139,6 +138,7 @@ const styles = StyleSheet.create({
         paddingTop: 60,
         backgroundColor: '#e60000',
         paddingHorizontal: 16,
+        paddingVertical: 16
 
     },
     headerTitle: {

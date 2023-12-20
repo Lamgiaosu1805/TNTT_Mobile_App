@@ -6,7 +6,7 @@ export default function DrawerHeader(props) {
     const {title, navigation} = props;
   return (
     <View style={styles.container}>
-        <TouchableOpacity style={{width: 30, height: 30}} onPress={() => navigation.navigate('Home')} activeOpacity={0.6}>
+        <TouchableOpacity style={{width: 30, height: 30}} onPress={() => navigation.goBack()} activeOpacity={0.6}>
             <Ionicons name='chevron-back-outline' size={30}/>
         </TouchableOpacity>
         <View>

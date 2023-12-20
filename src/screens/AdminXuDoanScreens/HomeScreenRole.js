@@ -54,14 +54,6 @@ export default function HomeScreenRole({navigation}) {
 
                         </View>
                     </View>
-                    <View style={styles.rowItem}>
-                        <View style={styles.item}>
-                            
-                        </View>
-                        <View style={styles.item}>
-
-                        </View>
-                    </View>
                 </View>
             </View>
         )

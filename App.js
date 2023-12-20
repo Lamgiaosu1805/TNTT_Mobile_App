@@ -11,6 +11,7 @@ import * as Updates from 'expo-updates';
 import { useEffect } from 'react';
 import { Alert } from 'react-native';
 import UserBottomTabNavigator from './src/navigator/UserBottomTabNavigator';
+import XuDoanInfoScreen from './src/screens/AdminXuDoanScreens/XuDoanInfoScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +48,7 @@ export default function App() {
             <Stack.Screen name="AdminXuDoanScreen" component={DrawerNavigator}/>
             <Stack.Screen name="ListMember" component={ListMemberScreen}/>
             <Stack.Screen name="UserScreen" component={UserBottomTabNavigator}/>
+            <Stack.Screen name="XuDoanInfoScreen" component={XuDoanInfoScreen}/>
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>
