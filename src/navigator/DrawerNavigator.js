@@ -106,10 +106,13 @@ export default function DrawerNavigator({route, navigation}) {
     async function onFetchUpdateAsync() {
         try {
           const update = await Updates.checkForUpdateAsync();
-    
           if (update.isAvailable) {
-            await Updates.fetchUpdateAsync();
-            await Updates.reloadAsync();
+            Alert.alert("Thông báo", "Đã có bản cập nhật mới, vui lòng cập nhật", async () => {
+                await Updates.fetchUpdateAsync();
+                await Updates.reloadAsync();
+            })
+            // await Updates.fetchUpdateAsync();
+            // await Updates.reloadAsync();
           }
         } catch (error) {
           // You can also add an alert() to see the error message in case of an error when fetching updates.
@@ -172,7 +175,7 @@ export default function DrawerNavigator({route, navigation}) {
                     <Drawer.Screen name='AddMember'
                         component={AddMemberScreen}
                         options={{
-                            drawerLabel: "Thêm đoàn sinh",
+                            drawerLabel: "Thêm đoàn sinhhhhhh",
                             drawerIcon: () => (
                                 <AwesomeIcon name='user-plus' size={20} color="#808080"/>
                             )
