@@ -6,32 +6,33 @@ import { MD3LightTheme as DefaultTheme, PaperProvider, SafeAreaView } from 'reac
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
 import DrawerNavigator from './src/navigator/DrawerNavigator';
-import ListMemberScreen from './src/screens/ListMemberScreen';
+import ListMemberScreen from './src/screens/AdminXuDoanScreens/ListMemberScreen';
 import * as Updates from 'expo-updates';
 import { useEffect } from 'react';
 import { Alert } from 'react-native';
+import UserBottomTabNavigator from './src/navigator/UserBottomTabNavigator';
 
 const Stack = createNativeStackNavigator();
 
 
 export default function App() {
-  async function onFetchUpdateAsync() {
-    try {
-      const update = await Updates.checkForUpdateAsync();
-      if (update.isAvailable) {
-        Alert.alert("Thông báo", "Đã có bản cập nhật mới, vui lòng cập nhật", async () => {
-          await Updates.fetchUpdateAsync();
-          await Updates.reloadAsync();
-        })
-      }
-    } catch (error) {
-      // You can also add an alert() to see the error message in case of an error when fetching updates.
-      alert(`Error fetching latest Expo update: ${error}`);
-    }
-  }
-  useEffect(() => {
-    onFetchUpdateAsync()
-  }, [])
+  // async function onFetchUpdateAsync() {
+  //   try {
+  //     const update = await Updates.checkForUpdateAsync();
+  //     if (update.isAvailable) {
+  //       Alert.alert("Thông báo", "Đã có bản cập nhật mới, vui lòng cập nhật", async () => {
+  //         await Updates.fetchUpdateAsync();
+  //         await Updates.reloadAsync();
+  //       })
+  //     }
+  //   } catch (error) {
+  //     // You can also add an alert() to see the error message in case of an error when fetching updates.
+  //     alert(`Error fetching latest Expo update: ${error}`);
+  //   }
+  // }
+  // useEffect(() => {
+  //   onFetchUpdateAsync()
+  // }, [])
   return (
     <Provider store={store}>
       <PaperProvider theme={{...DefaultTheme}}>
@@ -43,8 +44,9 @@ export default function App() {
             }}
           >
             <Stack.Screen name="SignIn" component={SignInScreen}/>
-            <Stack.Screen name="HomeDrawer" component={DrawerNavigator}/>
-            <Stack.Screen name="ListMember" component={ListMemberScreen} />
+            <Stack.Screen name="AdminXuDoanScreen" component={DrawerNavigator}/>
+            <Stack.Screen name="ListMember" component={ListMemberScreen}/>
+            <Stack.Screen name="UserScreen" component={UserBottomTabNavigator}/>
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>

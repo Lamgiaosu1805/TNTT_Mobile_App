@@ -1,13 +1,13 @@
 import { ActivityIndicator, Alert, Keyboard, Platform, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import React, { useState } from 'react';
-import DrawerHeader from '../components/DrawerHeader';
+import DrawerHeader from '../../components/DrawerHeader';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, MultiSelect } from 'react-native-element-dropdown';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
-import utils from '../utils';
+import utils from '../../utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { addMemberXuDoan } from '../redux/Slice/memberXuDoanSlice';
+import { addMemberXuDoan } from '../../redux/Slice/memberXuDoanSlice';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import { Modal, Portal } from 'react-native-paper';
 

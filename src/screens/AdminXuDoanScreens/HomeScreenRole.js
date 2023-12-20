@@ -8,25 +8,8 @@ export default function HomeScreenRole({navigation}) {
     const currentUser = useSelector(state => state.user);
     const renderView = useCallback(() => {
         if(currentUser) {
-            switch (currentUser.role) {
-                case 1:
-                    break;
-                case 2: 
-                    break;
-                case 3:
-                    return(
-                        <AdminXuDoanView />
-                    )
-                default:
-                    return <></>
-
-            }
-        }
-        else {
             return(
-                <View>
-
-                </View>
+                <AdminXuDoanView />
             )
         }
     }, [currentUser]);

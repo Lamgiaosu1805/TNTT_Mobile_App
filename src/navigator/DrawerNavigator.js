@@ -1,8 +1,8 @@
 import { ActivityIndicator, Alert, Dimensions, Image, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { DrawerItemList, createDrawerNavigator } from '@react-navigation/drawer'
-import HomeScreen from '../screens/HomeScreen'
-import AddMemberScreen from '../screens/AddMemberScreen'
+import HomeScreen from '../screens/AdminXuDoanScreens/HomeScreen'
+import AddMemberScreen from '../screens/AdminXuDoanScreens/AddMemberScreen'
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -50,10 +50,10 @@ export default function DrawerNavigator({navigation}) {
     }
 
     useEffect(() => {
-        AsyncStorage.getItem('accessToken')
-            .then(token => axios.get(`${utils.apiUrl}/users/me`, {
+        AsyncStorage.getItem('currentUser')
+            .then(user => axios.get(`${utils.apiUrl}/users/me`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${JSON.parse(user).token}`
                 }
             }))
             .then(res => {
@@ -91,10 +91,10 @@ export default function DrawerNavigator({navigation}) {
     }
     const getMemberXuDoan = async () => {
         try {
-            const token = await  AsyncStorage.getItem('accessToken');
+            const user = await  AsyncStorage.getItem('currentUser');
             const listMemberXuDoan = (await axios.get(`${utils.apiUrl}/xudoan/members`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${JSON.parse(user).token}`
                 }
             })).data;
             dispatch(storeListMemberXuDoan(listMemberXuDoan.data));
