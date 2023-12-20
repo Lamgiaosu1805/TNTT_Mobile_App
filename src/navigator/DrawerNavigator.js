@@ -164,7 +164,7 @@ export default function DrawerNavigator({route, navigation}) {
                     <Drawer.Screen name='AddMemberGLV'
                         component={AddMemberScreen}
                         options={{
-                            drawerLabel: "Thêm giáo lý viên",
+                            drawerLabel: "Thêm giáo lý viênnnnn",
                             drawerIcon: () => (
                                 <AwesomeIcon name='user-plus' size={20} color="#808080"/>
                             )
