@@ -15,7 +15,7 @@ import { storeChucVu } from '../redux/Slice/chucVuSlice'
 
 const Drawer = createDrawerNavigator()
 
-export default function DrawerNavigator({navigation}) {
+export default function DrawerNavigator({route, navigation}) {
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.user);
     const listCapKhan = useSelector(state => state.capKhan);
@@ -127,7 +127,7 @@ export default function DrawerNavigator({navigation}) {
                             return(
                                 <SafeAreaView style={{paddingVertical: Platform.OS == 'android' ? 20 : 0}}>
                                     <TouchableOpacity style={styles.drawerContent} activeOpacity={0.6}>
-                                        <Image source={require('../../assets/TNTT.png')} style={styles.logo}/>
+                                        <Image resizeMode='contain' source={currentUser.logoXuDoan ? {uri: currentUser.logoXuDoan} : require('../../assets/TNTT.png')} style={styles.logo}/>
                                         <Text style={{fontSize: 20, textAlign: 'center', marginTop: 12, fontWeight: '500'}}>
                                             {currentUser.tenXuDoan.split('-')[0]}
                                         </Text>
@@ -155,7 +155,16 @@ export default function DrawerNavigator({navigation}) {
                     <Drawer.Screen name='AddMember'
                         component={AddMemberScreen}
                         options={{
-                            drawerLabel: "Thêm thành viên",
+                            drawerLabel: "Thêm đoàn sinh",
+                            drawerIcon: () => (
+                                <AwesomeIcon name='user-plus' size={20} color="#808080"/>
+                            )
+                        }}
+                    />
+                    <Drawer.Screen name='AddMemberGLV'
+                        component={AddMemberScreen}
+                        options={{
+                            drawerLabel: "Thêm giáo lý viên",
                             drawerIcon: () => (
                                 <AwesomeIcon name='user-plus' size={20} color="#808080"/>
                             )

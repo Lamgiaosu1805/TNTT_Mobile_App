@@ -11,7 +11,7 @@ import { addMemberXuDoan } from '../../redux/Slice/memberXuDoanSlice';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import { Modal, Portal } from 'react-native-paper';
 
-export default function AddMemberScreen({navigation}) {
+export default function AddMemberScreen({route, navigation}) {
   const [saintName, setSaintName] = useState("");
   const [fullname, setFullname] = useState("");
   const [capKhan, setCapKhan] = useState(null);
@@ -22,7 +22,32 @@ export default function AddMemberScreen({navigation}) {
   const [isVisibleModal, setIsvisibleModal] = useState(false);
   const dispatch = useDispatch();
   
-  const listCapKhan= useSelector(state => state.capKhan);
+  const listCapKhan = route.name == "AddMember" ? useSelector(state => state.capKhan).filter(
+    (e) => 
+      e._id != "6568504d160bbc528d507af6" && 
+      e._id != "6568505a160bbc528d507af8" && 
+      e._id != "6568505e160bbc528d507afa" &&
+      e._id != "65685062160bbc528d507afc" &&
+      e._id != "6568507b160bbc528d507afe" &&
+      e._id != "65685084160bbc528d507b00" &&
+      e._id != "6568508d160bbc528d507b02" &&
+      e._id != "6568509b160bbc528d507b04" &&
+      e._id != "656850ac160bbc528d507b06" &&
+      e._id != "656850b8160bbc528d507b08"
+    ) : 
+    useSelector(state => state.capKhan).filter(
+      (e) => 
+        e._id == "6568504d160bbc528d507af6" || 
+        e._id == "6568505a160bbc528d507af8" || 
+        e._id == "6568505e160bbc528d507afa" ||
+        e._id == "65685062160bbc528d507afc"
+        // e._id == "6568507b160bbc528d507afe" ||
+        // e._id == "65685084160bbc528d507b00" 
+        // e._id == "6568508d160bbc528d507b02" ||
+        // e._id == "6568509b160bbc528d507b04" ||
+        // e._id == "656850ac160bbc528d507b06" ||
+        // e._id == "656850b8160bbc528d507b08"
+      )
   const currentUser = useSelector(state => state.user);
   const listChucVu = useSelector(state=> state.chucVu);
 
@@ -86,7 +111,7 @@ export default function AddMemberScreen({navigation}) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={[styles.container, {paddingVertical: Platform.OS=='android' ? 20 : 0}]}>
-        <DrawerHeader title="Thêm thành viên" navigation={navigation}/>
+        <DrawerHeader title={route.name == "AddMember" ? "Thêm đoàn sinh" : "Thêm giáo lý viên"} navigation={navigation}/>
         {
           isVisibleModal && Platform.OS === "android" && (
             <Pressable onPress={() => setIsvisibleModal(false)}>
@@ -152,7 +177,7 @@ export default function AddMemberScreen({navigation}) {
                 data={listCapKhan}
                 labelField="name"
                 valueField="_id"
-                placeholder={!isFocus ? 'Cấp khăn' : '...'}
+                placeholder={!isFocus ? route.name == "AddMember" ? 'Ngành' : 'Cấp hiệu' : '...'}
                 value={capKhan}
                 onFocus={() => setIsFocus(true)}
                 onBlur={() => setIsFocus(false)}
@@ -166,24 +191,28 @@ export default function AddMemberScreen({navigation}) {
                 dropdownPosition='auto'
               />
             </View>
-            <View style={[styles.capKhan, {marginTop: 0}]}>
-              <MultiSelect
-                style={styles.dropdown}
-                selectedTextStyle={styles.selectedTextStyle}
-                data={listChucVu}
-                labelField="name"
-                valueField="_id"
-                placeholder="Chức vụ"
-                placeholderStyle={styles.placeholderStyle}
-                value={chucVuselected}
-                onChange={item => {
-                  setChucVuSelected(item);
-                }}
-                selectedStyle={styles.selectedStyle}
-                renderItem={renderItem}
-                dropdownPosition='auto'
-              />
-            </View>
+            {
+              route.name == "AddMemberGLV" && (
+                <View style={[styles.capKhan, {marginTop: 0}]}>
+                  <MultiSelect
+                    style={styles.dropdown}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    data={listChucVu}
+                    labelField="name"
+                    valueField="_id"
+                    placeholder="Chức vụ"
+                    placeholderStyle={styles.placeholderStyle}
+                    value={chucVuselected}
+                    onChange={item => {
+                      setChucVuSelected(item);
+                    }}
+                    selectedStyle={styles.selectedStyle}
+                    renderItem={renderItem}
+                    dropdownPosition='auto'
+                  />
+                </View>
+              )
+            }
           </View>
         </ScrollView>
         <View style={{width: '100%', alignItems: 'center'}}>
