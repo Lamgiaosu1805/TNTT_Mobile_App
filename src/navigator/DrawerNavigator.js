@@ -172,7 +172,7 @@ export default function DrawerNavigator({route, navigation}) {
                     <Drawer.Screen name='AddMember'
                         component={AddMemberScreen}
                         options={{
-                            drawerLabel: "Thêm đoàn sinhhh",
+                            drawerLabel: "Thêm đoàn sinh",
                             drawerIcon: () => (
                                 <AwesomeIcon name='user-plus' size={20} color="#808080"/>
                             )
@@ -181,7 +181,7 @@ export default function DrawerNavigator({route, navigation}) {
                     <Drawer.Screen name='AddMemberGLV'
                         component={AddMemberScreen}
                         options={{
-                            drawerLabel: "Thêm giáo lý viên",
+                            drawerLabel: "Thêm giáo lý viênnn",
                             drawerIcon: () => (
                                 <AwesomeIcon name='user-plus' size={20} color="#808080"/>
                             )
