@@ -1,7 +1,7 @@
 import { Alert, FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import utils from '../utils';
+import utils from '../../utils';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 

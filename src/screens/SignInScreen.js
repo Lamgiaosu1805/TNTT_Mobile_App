@@ -11,17 +11,39 @@ export default function SignInScreen({ navigation }) {
     const [isHidePassword, setIsHidePassword] = useState(true);
     const checkToken = async () => {
         try {
-            const token = await AsyncStorage.getItem('accessToken');
-            if(token !== null) {
-                navigation.replace('HomeDrawer')
+            const data = await AsyncStorage.getItem('currentUser');
+            if(data != null) {
+                const currentUser = JSON.parse(data);
+                const token = currentUser.token;
+                if(token !== null) {
+                    goToScreen(currentUser.role)
+                }
             }
         } catch (error) {
             console.log(error)
         }
     }
+
+    const goToScreen = (role) => {
+        switch (role) {
+            case 1:
+                navigation.replace('UserScreen')
+                break;
+            case 2:
+
+                break;
+            case 3:
+                navigation.replace('AdminXuDoanScreen')
+                break;
+            default:
+                break;
+        }
+    }
+
     useEffect(() => {
         checkToken()
     }, []);
+    
     const signIn = async() => {
         try {
             if(username == "" || password == "") {
@@ -35,8 +57,20 @@ export default function SignInScreen({ navigation }) {
                 const data = responseData.data;
                 const accessToken = data.accessToken;
                 if(accessToken) {
-                    await AsyncStorage.setItem('accessToken', accessToken.toString());
-                    navigation.replace('HomeDrawer');
+                    try {
+                        const response = await axios.get(`${utils.apiUrl}/users/me`, {
+                            headers: {
+                                Authorization: `Bearer ${accessToken}`
+                            }
+                        })
+                        const user = response.data;
+                        const jsonUser = JSON.stringify({...user, token: accessToken});
+                        await AsyncStorage.setItem('currentUser', jsonUser);
+                        goToScreen(user.role);
+                    } catch (error) {
+                        console.log(error);
+                        Alert.alert('Lỗi', 'Có lỗi trong quá trình đăng nhập, vui lòng thử lại sau!!!')
+                    }
                 }
                 else {
                     Alert.alert('Đăng nhập không thành công', "Sai tên đăng nhập hoặc mật khẩu!")
