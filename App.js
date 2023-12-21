@@ -17,23 +17,27 @@ const Stack = createNativeStackNavigator();
 
 
 export default function App() {
-  // async function onFetchUpdateAsync() {
-  //   try {
-  //     const update = await Updates.checkForUpdateAsync();
-  //     if (update.isAvailable) {
-  //       Alert.alert("Thông báo", "Đã có bản cập nhật mới, vui lòng cập nhật", async () => {
-  //         await Updates.fetchUpdateAsync();
-  //         await Updates.reloadAsync();
-  //       })
-  //     }
-  //   } catch (error) {
-  //     // You can also add an alert() to see the error message in case of an error when fetching updates.
-  //     alert(`Error fetching latest Expo update: ${error}`);
-  //   }
-  // }
-  // useEffect(() => {
-  //   onFetchUpdateAsync()
-  // }, [])
+  async function onFetchUpdateAsync() {
+    try {
+      const update = await Updates.checkForUpdateAsync();
+      if (update.isAvailable) {
+        Alert.alert("Thông báo", "Đã có bản cập nhật mới, vui lòng cập nhật", [
+            {
+                text: "OK",
+                onPress: async () => {
+                    await Updates.fetchUpdateAsync();
+                    await Updates.reloadAsync();
+                }
+            }
+        ])
+      }
+    } catch (error) {
+      alert(`Error fetching latest Expo update: ${error}`);
+    }
+  }
+  useEffect(() => {
+    onFetchUpdateAsync()
+  }, [])
   return (
     <Provider store={store}>
       <PaperProvider theme={{...DefaultTheme}}>
