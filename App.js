@@ -2,16 +2,16 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignInScreen from './src/screens/SignInScreen';
-import { MD3LightTheme as DefaultTheme, PaperProvider, SafeAreaView } from 'react-native-paper';
+import { MD3LightTheme as DefaultTheme, PaperProvider } from 'react-native-paper';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
 import DrawerNavigator from './src/navigator/DrawerNavigator';
 import ListMemberScreen from './src/screens/AdminXuDoanScreens/ListMemberScreen';
 import * as Updates from 'expo-updates';
-import { useEffect } from 'react';
 import { Alert } from 'react-native';
 import UserBottomTabNavigator from './src/navigator/UserBottomTabNavigator';
 import XuDoanInfoScreen from './src/screens/AdminXuDoanScreens/XuDoanInfoScreen';
+import DiemDanhScreen from './src/screens/AdminXuDoanScreens/DiemDanhScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,9 +35,9 @@ export default function App() {
       alert(`Error fetching latest Expo update: ${error}`);
     }
   }
-  useEffect(() => {
-    onFetchUpdateAsync()
-  }, [])
+  // useEffect(() => {
+  //   onFetchUpdateAsync()
+  // }, [])
   return (
     <Provider store={store}>
       <PaperProvider theme={{...DefaultTheme}}>
@@ -53,6 +53,7 @@ export default function App() {
             <Stack.Screen name="ListMember" component={ListMemberScreen}/>
             <Stack.Screen name="UserScreen" component={UserBottomTabNavigator}/>
             <Stack.Screen name="XuDoanInfoScreen" component={XuDoanInfoScreen}/>
+            <Stack.Screen name='DiemDanhScreen' component={DiemDanhScreen}/>
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>

@@ -44,6 +44,12 @@
         {
           "username": "kylanx11"
         }
+      ],
+      [
+        "expo-barcode-scanner",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access camera."
+        }
       ]
     ]
   }
