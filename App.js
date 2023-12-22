@@ -35,9 +35,9 @@ export default function App() {
       alert(`Error fetching latest Expo update: ${error}`);
     }
   }
-  // useEffect(() => {
-  //   onFetchUpdateAsync()
-  // }, [])
+  useEffect(() => {
+    onFetchUpdateAsync()
+  }, [])
   return (
     <Provider store={store}>
       <PaperProvider theme={{...DefaultTheme}}>
