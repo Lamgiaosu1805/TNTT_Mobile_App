@@ -71,10 +71,10 @@ export default function AddMemberScreen({route, navigation}) {
     }
     else {
       setLoading(true)
-      AsyncStorage.getItem('accessToken')
-        .then(token => axios.post(`${utils.apiUrl}/xudoan/member/create`, body, {
+      AsyncStorage.getItem('currentUser')
+        .then(user => axios.post(`${utils.apiUrl}/xudoan/member/create`, body, {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${JSON.parse(user).token}`
           }
         }))
         .then(res => {

@@ -42,9 +42,11 @@ export default function HomeScreenRole({navigation}) {
                                 Danh sách thành viên
                             </Text>
                         </TouchableOpacity>
-                        <View style={styles.item}>
-
-                        </View>
+                        <TouchableOpacity style={styles.item} activeOpacity={0.6} onPress={() => navigation.navigate('DiemDanhScreen')}>
+                            <Text style={styles.itemTitle}>
+                                Điểm danh
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.rowItem}>
                         <View style={styles.item}>
