@@ -12,6 +12,7 @@ import { Alert } from 'react-native';
 import UserBottomTabNavigator from './src/navigator/UserBottomTabNavigator';
 import XuDoanInfoScreen from './src/screens/AdminXuDoanScreens/XuDoanInfoScreen';
 import DiemDanhScreen from './src/screens/AdminXuDoanScreens/DiemDanhScreen';
+import { useEffect } from 'react';
 
 const Stack = createNativeStackNavigator();
 
