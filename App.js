@@ -13,6 +13,7 @@ import UserBottomTabNavigator from './src/navigator/UserBottomTabNavigator';
 import XuDoanInfoScreen from './src/screens/AdminXuDoanScreens/XuDoanInfoScreen';
 import DiemDanhScreen from './src/screens/AdminXuDoanScreens/DiemDanhScreen';
 import { useEffect } from 'react';
+import ClassScreen from './src/screens/AdminXuDoanScreens/ClassScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -55,6 +56,7 @@ export default function App() {
             <Stack.Screen name="UserScreen" component={UserBottomTabNavigator}/>
             <Stack.Screen name="XuDoanInfoScreen" component={XuDoanInfoScreen}/>
             <Stack.Screen name='DiemDanhScreen' component={DiemDanhScreen}/>
+            <Stack.Screen name='ClassScreen' component={ClassScreen}/>
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>

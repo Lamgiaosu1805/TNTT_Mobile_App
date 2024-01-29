@@ -2,8 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function DrawerHeader(props) {
-    const {title, navigation} = props;
+export default function DrawerHeader({title, navigation, rightIcon, rightIconName, handlePressRightIcon}) {
   return (
     <View style={styles.container}>
         <TouchableOpacity style={{width: 30, height: 30}} onPress={() => navigation.goBack()} activeOpacity={0.6}>
@@ -12,9 +11,9 @@ export default function DrawerHeader(props) {
         <View>
             <Text style={styles.title}>{title}</Text>
         </View>
-        <View style={{width: 30, height: 30}}>
-            {/* <Ionicons name='arrow-back-outline' size={20}/> */}
-        </View>
+        <TouchableOpacity style={{width: 30, height: 30}} activeOpacity={0.6} onPress={handlePressRightIcon}>
+            {rightIcon == true && <Ionicons name={rightIconName} size={30}/>}
+        </TouchableOpacity>
     </View>
   )
 }

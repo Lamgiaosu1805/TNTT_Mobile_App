@@ -92,7 +92,7 @@ export default function DrawerNavigator({route, navigation}) {
     }
     const getMemberXuDoan = async () => {
         try {
-            const user = await  AsyncStorage.getItem('currentUser');
+            const user = await AsyncStorage.getItem('currentUser');
             const listMemberXuDoan = (await axios.get(`${utils.apiUrl}/xudoan/members`, {
                 headers: {
                     Authorization: `Bearer ${JSON.parse(user).token}`

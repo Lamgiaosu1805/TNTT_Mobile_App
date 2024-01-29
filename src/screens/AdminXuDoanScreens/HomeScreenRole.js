@@ -49,12 +49,14 @@ export default function HomeScreenRole({navigation}) {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.rowItem}>
-                        <View style={styles.item}>
+                        <TouchableOpacity style={styles.item} activeOpacity={0.6} onPress={() => navigation.navigate('ClassScreen')}>
+                            <Text style={styles.itemTitle}>
+                                Lớp học
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.item} activeOpacity={0.6}>
                             
-                        </View>
-                        <View style={styles.item}>
-
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
