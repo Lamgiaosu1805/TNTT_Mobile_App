@@ -10,9 +10,12 @@ const classes = createSlice({
         },
         addClass: (state, action) => {
             state.push(action.payload);
+        },
+        resetClass: (state, action) => {
+            return initialState;
         }
     }
 });
 const {reducer, actions} = classes;
-export const {storeClass, addClass} = actions;
+export const {storeClass, addClass, resetClass} = actions;
 export default reducer;

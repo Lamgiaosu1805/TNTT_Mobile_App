@@ -13,6 +13,7 @@ import { resetMemberXuDoan, storeListMemberXuDoan } from '../redux/Slice/memberX
 import { storeCapKhan } from '../redux/Slice/capKhanSlice'
 import { storeChucVu } from '../redux/Slice/chucVuSlice'
 import * as Updates from 'expo-updates';
+import { resetClass } from '../redux/Slice/classSlice'
 
 const Drawer = createDrawerNavigator()
 
@@ -39,6 +40,7 @@ export default function DrawerNavigator({route, navigation}) {
                             await AsyncStorage.clear();
                             dispatch(resetMemberXuDoan());
                             dispatch(resetUser());
+                            dispatch(resetClass());
                             navigation.replace('SignIn')
                         } catch (error) {
                             console.log(error)
