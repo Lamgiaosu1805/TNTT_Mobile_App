@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
-
+const initialState = []
 const classes = createSlice({
     name: 'classes',
-    initialState: [],
+    initialState: initialState,
     reducers: {
         storeClass: (state, action) => {
             state = action.payload
