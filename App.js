@@ -14,6 +14,7 @@ import XuDoanInfoScreen from './src/screens/AdminXuDoanScreens/XuDoanInfoScreen'
 import DiemDanhScreen from './src/screens/AdminXuDoanScreens/DiemDanhScreen';
 import { useEffect } from 'react';
 import ClassScreen from './src/screens/AdminXuDoanScreens/ClassScreen';
+import { StatusBar } from 'expo-status-bar';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +45,7 @@ export default function App() {
     <Provider store={store}>
       <PaperProvider theme={{...DefaultTheme}}>
         <NavigationContainer>
+          <StatusBar translucent={true} style='auto'/>
           <Stack.Navigator
             initialRouteName='SignIn'
             screenOptions={{

@@ -18,8 +18,9 @@
       "supportsTablet": true
     },
     "android": {
+      "statusBar": false,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/tntt.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.kylanx11.TNTT_Mobile_App"

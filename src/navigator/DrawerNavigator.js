@@ -146,7 +146,7 @@ export default function DrawerNavigator({route, navigation}) {
                             return(
                                 <SafeAreaView style={{paddingVertical: Platform.OS == 'android' ? 20 : 0}}>
                                     <TouchableOpacity style={styles.drawerContent} activeOpacity={0.6} onPress={() => navigation.navigate('XuDoanInfoScreen')}>
-                                        <Image resizeMode='contain' source={currentUser.detailXuDoan.logoUrl ? {uri: currentUser.detailXuDoan.logoUrl, cache: 'force-cache'} : require('../../assets/TNTT.png')} style={styles.logo}/>
+                                        <Image resizeMode='contain' source={currentUser.detailXuDoan.logoUrl ? {uri: currentUser.detailXuDoan.logoUrl, cache: 'force-cache'} : require('../../assets/tntt.png')} style={styles.logo}/>
                                         <Text style={{fontSize: 20, textAlign: 'center', marginTop: 12, fontWeight: '500'}}>
                                             {currentUser.tenXuDoan.split('-')[0]}
                                         </Text>
