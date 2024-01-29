@@ -105,18 +105,21 @@ export default function DrawerNavigator({route, navigation}) {
     }
     async function onFetchUpdateAsync() {
         try {
-          const update = await Updates.checkForUpdateAsync();
-          if (update.isAvailable) {
-            Alert.alert("Thông báo", "Đã có bản cập nhật mới, vui lòng cập nhật", [
-                {
-                    text: "OK",
-                    onPress: async () => {
-                        await Updates.fetchUpdateAsync();
-                        await Updates.reloadAsync();
+            const update = await Updates.checkForUpdateAsync();
+            if (update.isAvailable) {
+                Alert.alert("Thông báo", "Đã có bản cập nhật mới, vui lòng cập nhật", [
+                    {
+                        text: "OK",
+                        onPress: async () => {
+                            await Updates.fetchUpdateAsync();
+                            await Updates.reloadAsync();
+                        }
                     }
-                }
-            ])
-          }
+                ])
+            }
+            else{
+                alert("Bạn đã ở phiên bản mới nhất")
+            }
         } catch (error) {
           alert(`Error fetching latest Expo update: ${error}`);
         }
