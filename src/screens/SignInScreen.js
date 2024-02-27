@@ -86,7 +86,7 @@ export default function SignInScreen({ navigation }) {
             <TouchableNativeFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
                     <View style={{alignItems: 'center', marginBottom: 40}}>
-                        <Image source={require('../../assets/tntt.png')} style={styles.logo}/>
+                        <Image source={require('../../assets/TNTT.png')} style={styles.logo}/>
                         <Text style={styles.titleText}>THIẾU NHI THÁNH THỂ VIỆT NAM</Text>
                     </View>
                     <View style={styles.inputArea}>
